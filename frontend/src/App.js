@@ -7,6 +7,7 @@ import StudentDashboard from "./StudentDashboard";
 import ExamDashboard from "./ExamDashboard";
 import ManageStudents from "./ManageStudents";
 import ApproveStudents from "./ApproveStudents";
+import ApprovedStudents from "./ApprovedStudents";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/ApproveStudents" element={<ApproveStudents />} />
+        <Route path="/students/approved" element={<ApprovedStudents />} />
         <Route path="/hod" element={<HodDashboard />} />
         <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/faculty" element={<FacultyDashboard />} />
