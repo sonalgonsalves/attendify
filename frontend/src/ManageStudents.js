@@ -6,6 +6,7 @@ const ManageStudents = () => {
   const [formData, setFormData] = useState({
     name: '',
     rollNumber: '',
+    dob: '',
     batch: '',
     department: '',
   });
@@ -18,11 +19,13 @@ const ManageStudents = () => {
     if (!formData.name) newErrors.name = 'Name is required';
     else if (!/^[A-Za-z][A-Za-z\s]*$/.test(formData.name)) newErrors.name = 'Name should only contain alphabets and spaces, starting with an alphabet';
     
-    if (!formData.rollNumber) newErrors.rollNumber = 'Roll Number is required';
+    if (!formData.rollNumber) newErrors.rollNumber = 'USN is required';
     
     if (!formData.batch) newErrors.batch = 'Batch is required';
     
     if (!formData.department) newErrors.department = 'Department is required';
+
+    if (!formData.dob) newErrors.dob = 'Date of Birth is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -41,7 +44,7 @@ const ManageStudents = () => {
       console.log("Student Details Submitted:", response.data);
   
       setIsModalOpen(true);
-      setFormData({ name: '', rollNumber: '', batch: '', department: '' });
+      setFormData({ name: '', rollNumber: '', dob: '',batch: '', department: '' });
     } catch (error) {
       console.error("Error submitting student details:", error);
     }
@@ -87,18 +90,30 @@ const ManageStudents = () => {
           onChange={handleChange}
           error={!!errors.name}
           helperText={errors.name}
-          sx={{ mb: 2, input: { color: "#FFF" }, label: { color: "#FFA500" } }}
+          sx={{ mb: 2, input: { color: "#FFF" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
         />
 
         <TextField
           fullWidth
-          label="Roll Number"
+          label="USN"
           name="rollNumber"
           value={formData.rollNumber}
           onChange={handleChange}
           error={!!errors.rollNumber}
           helperText={errors.rollNumber}
-          sx={{ mb: 2, input: { color: "#FFF" }, label: { color: "#FFA500" } }}
+          sx={{ mb: 2, input: { color: "#FFF" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
+        />    
+        <TextField
+          fullWidth
+          label="Date of Birth"
+          name="dob"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={formData.dob}
+          onChange={handleChange}
+          error={!!errors.dob}
+          helperText={errors.dob}
+          sx={{ mb: 2, input: { color: "#FFA500" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
         />
 
         <TextField
@@ -109,7 +124,7 @@ const ManageStudents = () => {
           onChange={handleChange}
           error={!!errors.batch}
           helperText={errors.batch}
-          sx={{ mb: 2, input: { color: "#FFF" }, label: { color: "#FFA500" } }}
+          sx={{ mb: 2, input: { color: "#FFF" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
         />
 
         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.department}>

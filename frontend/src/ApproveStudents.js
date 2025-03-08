@@ -114,7 +114,7 @@ const ApproveStudents = () => {
               <Table>
                 <TableHead>
                   <TableRow sx={{ backgroundColor: "#FFA500" }}>
-                    {["Name", "USN", "Batch", "Department", "Status"].map(head => (
+                    {["Name", "USN","DOB","Batch", "Department", "Status"].map(head => (
                       <TableCell key={head} align="center" sx={{ fontWeight: "bold", color: "#121212" }}>{head}</TableCell>
                     ))}
                   </TableRow>
@@ -124,6 +124,7 @@ const ApproveStudents = () => {
                     <TableRow key={student._id} sx={{ backgroundColor: "#1E1E1E", color: "#FFA500" }}>
                       <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.name}</TableCell>
                       <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.rollNumber}</TableCell>
+                      <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.dob}</TableCell>
                       <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.batch}</TableCell>
                       <TableCell align="center" sx={{ color: "#FFA500" }}>{student.department}</TableCell>
                       <TableCell align="center">
