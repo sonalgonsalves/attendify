@@ -39,7 +39,7 @@ function Login() {
         // Role check
         if (role === "Admin") {
             alert("Admin login successful!");
-            navigate('/admin');
+            navigate('/admin/dashboard');
             return;
         } else if (role === "HOD") {
             alert("HOD login successful!");

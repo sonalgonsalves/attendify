@@ -15,7 +15,7 @@ function Sidebar() {
         Admin Panel
       </Box>
       <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-        <ListItem button component={NavLink} to="/admin" 
+        <ListItem button component={NavLink} to="/admin/dashboard" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
