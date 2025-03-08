@@ -4,6 +4,7 @@ import AdminDashboard from "./AdminDashboard";
 import HodDashboard from "./HodDashboard";
 import FacultyDashboard from "./FacultyDashboard";
 import StudentDashboard from "./StudentDashboard";
+import ExamDashboard from "./ExamDashboard";
 
 function App() {
   return (
