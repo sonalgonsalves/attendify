@@ -37,7 +37,7 @@ function Login() {
         }
 
         // Role check
-        if (role === "admin") {
+        if (role === "Admin") {
             alert("Admin login successful!");
             navigate('/admin');
             return;
@@ -52,12 +52,12 @@ function Login() {
             navigate('/faculty');
             return;
         }
-        else if (role === "student") {
+        else if (role === "Student") {
             alert("Student login successful!");
             navigate('/student');
             return;
         }
-        else if (role === "exam") {
+        else if (role === "Exam") {
             alert("Exam Staff login successful!");
             navigate('/exam');
             return;
