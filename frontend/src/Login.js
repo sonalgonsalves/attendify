@@ -52,6 +52,11 @@ function Login() {
             navigate('/faculty');
             return;
         }
+        else if (role === "student") {
+            alert("Student login successful!");
+            navigate('/student');
+            return;
+        }
         else if (role === "exam") {
             alert("Exam Staff login successful!");
             navigate('/exam');
@@ -78,7 +83,7 @@ function Login() {
         <Container maxWidth="xs" style={{ height: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Box >
                 <Typography variant="h4" gutterBottom>
-                    <b>LOGIN</b>
+                    <center><b>LOGIN</b></center>
                 </Typography>
                 <Box component="form" onSubmit={handleLogin} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
