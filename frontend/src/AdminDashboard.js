@@ -105,7 +105,7 @@ function Sidebar() {
           <Group sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Manage Users" />
         </ListItem>
-        <ListItem button component={NavLink} to="/admin/students" 
+        <ListItem button component={NavLink} to="/admin/ApproveStudents" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
