@@ -1,4 +1,4 @@
-import { Box, Container, Grid, TextField, Button, Link, Typography } from "@mui/material";
+import { Box, Container, Grid, TextField, Button, Typography,FormControl,InputLabel,Select,MenuItem,FormHelperText } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -6,19 +6,24 @@ import axios from 'axios';
 function Login() {
     const navigate = useNavigate();
     const [name, setName] = useState("");
+    const [role, setRole] = useState("");
     const [password, setPassword] = useState("");
 
-    const [errors, setErrors] = useState({ name: "", password: "" });
+    const [errors, setErrors] = useState({ name: "", role:"",password: "" });
 
     const handleLogin = (event) => {
         event.preventDefault();
 
-        // Simple validation logic
+        // validations
         let validationErrors = { name: "", password: "" };
         let isValid = true;
 
         if (!name) {
             validationErrors.name = "Username is required";
+            isValid = false;
+        }
+        if (!role) {
+            validationErrors.role = "Role is required";
             isValid = false;
         }
         if (!password) {
@@ -31,14 +36,29 @@ function Login() {
             return;
         }
 
-        // Admin check
-        if (name === "admin" && password === "admin123") {
+        // Role check
+        if (role === "admin") {
             alert("Admin login successful!");
-            navigate('/dashboard');
+            navigate('/admin');
+            return;
+        }
+        else if (role === "HOD") {
+            alert("HOD login successful!");
+            navigate('/hod');
+            return;
+        }
+        else if (role === "Faculty") {
+            alert("Faculty login successful!");
+            navigate('/faculty');
+            return;
+        }
+        else if (role === "exam") {
+            alert("Exam Staff login successful!");
+            navigate('/exam');
             return;
         }
 
-        // user login check
+        /* user login check
         axios.post('http://localhost:5000/login', { name, password })
             .then(result => {
                 if (result.data === "Success") {
@@ -52,8 +72,8 @@ function Login() {
                 console.error(err);
                 alert("An error occurred while logging in. Please try again later.");
             });
+            */
     };
-
     return (
         <Container maxWidth="xs" style={{ height: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Box >
@@ -72,6 +92,24 @@ function Login() {
                                 error={!!errors.name}
                                 helperText={errors.name}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <FormControl fullWidth error={!!errors.role}>
+                            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                label="Role"
+                                onChange={(e) => setRole(e.target.value)}
+                            >
+                            <MenuItem value={"Admin"}>Admin</MenuItem>
+                            <MenuItem value={"HOD"}>HOD</MenuItem>
+                            <MenuItem value={"Faculty"}>Faculty</MenuItem>
+                            <MenuItem value={"Student"}>Student</MenuItem>
+                            <MenuItem value={"Exam"}>Exam Department Staff</MenuItem>
+                            </Select>
+                            {errors.role && <FormHelperText>{errors.role}</FormHelperText>}
+                        </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -93,9 +131,6 @@ function Login() {
                     </Grid>
                 </Box>
                 <Box sx={{ mt: 2, textAlign: 'center' }}>
-                    <Link href="/register" underline="hover" sx={{ display: 'block', mt: 1 }}>
-                        New user? Register
-                    </Link>
                 </Box>
             </Box>
         </Container>
