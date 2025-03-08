@@ -1,7 +1,7 @@
-import { Box, Container, Grid, TextField, Button, Typography,FormControl,InputLabel,Select,MenuItem,FormHelperText } from "@mui/material";
+import { Box, Container, Grid, TextField, Button, Typography, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import { ExitToApp } from "@mui/icons-material";
 
 function Login() {
     const navigate = useNavigate();
@@ -9,13 +9,13 @@ function Login() {
     const [role, setRole] = useState("");
     const [password, setPassword] = useState("");
 
-    const [errors, setErrors] = useState({ name: "", role:"",password: "" });
+    const [errors, setErrors] = useState({ name: "", role: "", password: "" });
 
     const handleLogin = (event) => {
         event.preventDefault();
 
         // validations
-        let validationErrors = { name: "", password: "" };
+        let validationErrors = { name: "", role: "", password: "" };
         let isValid = true;
 
         if (!name) {
@@ -41,48 +41,29 @@ function Login() {
             alert("Admin login successful!");
             navigate('/admin');
             return;
-        }
-        else if (role === "HOD") {
+        } else if (role === "HOD") {
             alert("HOD login successful!");
             navigate('/hod');
             return;
-        }
-        else if (role === "Faculty") {
+        } else if (role === "Faculty") {
             alert("Faculty login successful!");
             navigate('/faculty');
             return;
-        }
-        else if (role === "Student") {
+        } else if (role === "Student") {
             alert("Student login successful!");
             navigate('/student');
             return;
-        }
-        else if (role === "Exam") {
+        } else if (role === "Exam") {
             alert("Exam Staff login successful!");
             navigate('/exam');
             return;
         }
-
-        /* user login check
-        axios.post('http://localhost:5000/login', { name, password })
-            .then(result => {
-                if (result.data === "Success") {
-                    alert("Login successful!");
-                    navigate('/complaint');
-                } else {
-                    alert("Invalid credentials, please try again.");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("An error occurred while logging in. Please try again later.");
-            });
-            */
     };
+
     return (
-        <Container maxWidth="xs" style={{ height: '85vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Box >
-                <Typography variant="h4" gutterBottom>
+        <Container maxWidth="xl" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: "#000000" }}>
+            <Box sx={{ bgcolor: "#1e1e1e", padding: 3, borderRadius: 2 }}>
+                <Typography variant="h4" gutterBottom style={{ fontWeight: "bold", color: "#FFA500" }}>
                     <center><b>LOGIN</b></center>
                 </Typography>
                 <Box component="form" onSubmit={handleLogin} sx={{ mt: 3 }}>
@@ -96,25 +77,29 @@ function Login() {
                                 onChange={(e) => setName(e.target.value)}
                                 error={!!errors.name}
                                 helperText={errors.name}
+                                sx={{ bgcolor: "#1e1e1e", color: "#FFA500" }}
+                                InputLabelProps={{ style: { color: "#FFA500" } }} // Label color
+                                InputProps={{ style: { color: "#FFA500" } }} // Input text color
                             />
                         </Grid>
                         <Grid item xs={12}>
-                        <FormControl fullWidth error={!!errors.role}>
-                            <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Role"
-                                onChange={(e) => setRole(e.target.value)}
-                            >
-                            <MenuItem value={"Admin"}>Admin</MenuItem>
-                            <MenuItem value={"HOD"}>HOD</MenuItem>
-                            <MenuItem value={"Faculty"}>Faculty</MenuItem>
-                            <MenuItem value={"Student"}>Student</MenuItem>
-                            <MenuItem value={"Exam"}>Exam Department Staff</MenuItem>
-                            </Select>
-                            {errors.role && <FormHelperText>{errors.role}</FormHelperText>}
-                        </FormControl>
+                            <FormControl fullWidth error={!!errors.role}>
+                                <InputLabel id="role-select-label" sx={{ color: "#FFA500" }}>Role</InputLabel>
+                                <Select
+                                    labelId="role-select-label"
+                                    id="role-select"
+                                    label="Role"
+                                    onChange={(e) => setRole(e.target.value)}
+                                    sx={{ bgcolor: "#1e1e1e", color: "#FFA500" }}
+                                >
+                                    <MenuItem value={"Admin"}>Admin</MenuItem>
+                                    <MenuItem value={"HOD"}>HOD</MenuItem>
+                                    <MenuItem value={"Faculty"}>Faculty</MenuItem>
+                                    <MenuItem value={"Student"}>Student</MenuItem>
+                                    <MenuItem value={"Exam"}>Exam Department Staff</MenuItem>
+                                </Select>
+                                {errors.role && <FormHelperText>{errors.role}</FormHelperText>}
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -126,10 +111,13 @@ function Login() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 error={!!errors.password}
                                 helperText={errors.password}
+                                sx={{ bgcolor: "#1e1e1e", color: "#FFA500" }}
+                                InputLabelProps={{ style: { color: "#FFA500" } }} // Label color
+                                InputProps={{ style: { color: "#FFA500" } }} // Input text color
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant="contained" type="submit" fullWidth>
+                            <Button variant="contained" type="submit" fullWidth sx={{ bgcolor: "#FFA500", color: "#000000" }}>
                                 <b>LOGIN</b>
                             </Button>
                         </Grid>
