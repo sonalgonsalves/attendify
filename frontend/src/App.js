@@ -5,6 +5,8 @@ import HodDashboard from "./HodDashboard";
 import FacultyDashboard from "./FacultyDashboard";
 import StudentDashboard from "./StudentDashboard";
 import ExamDashboard from "./ExamDashboard";
+import ManageStudents from "./ManageStudents";
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/hod" element={<HodDashboard />} />
+        <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/faculty" element={<FacultyDashboard />} />
         <Route path="/student" element={<StudentDashboard />} />
         <Route path="/exam" element={<ExamDashboard />} />
