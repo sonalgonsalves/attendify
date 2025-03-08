@@ -1,7 +1,7 @@
 import React from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, NavLink } from "react-router-dom";
 import { Drawer, List, ListItem, ListItemText, Card, CardContent, Typography, AppBar, Toolbar, Button, Box } from "@mui/material";
-import { Dashboard, Assignment, BarChart, Edit, CheckCircle, Description, Book } from "@mui/icons-material";
+import { Home, Group, School, Settings, ExitToApp,Book,Dashboard as DashboardIcon } from "@mui/icons-material";
 
 function FacultyHome() {
   return (
@@ -42,41 +42,6 @@ const cardStyle = {
   backgroundColor: "#1e1e1e",
 };
 
-function ViewSubjects() {
-  return <PageContainer title="View Assigned Subjects" />;
-}
-
-function ConfigureQuestionPaper() {
-  return <PageContainer title="Configure Question Paper Patterns" />;
-}
-
-function ManageMarks() {
-  return <PageContainer title="Manage Marks" />;
-}
-
-function TakeAttendance() {
-  return <PageContainer title="Take Attendance" />;
-}
-
-function FreezeMarks() {
-  return <PageContainer title="Freeze Marks" />;
-}
-
-function GenerateReports() {
-  return <PageContainer title="Generate Reports" />;
-}
-
-function GenerateFinalCourseFile() {
-  return <PageContainer title="Generate Final Course File" />;
-}
-
-function PageContainer({ title }) {
-  return (
-    <div style={{ padding: "30px", backgroundColor: "#121212", height: "100vh" }}>
-      <Typography variant="h4" color="#FFA500">{title}</Typography>
-    </div>
-  );
-}
 
 function Sidebar() {
   return (
@@ -85,69 +50,69 @@ function Sidebar() {
         Faculty Panel
       </Box>
       <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-        <ListItem button component={Link} to="/faculty" 
+        <ListItem button component={NavLink} to="/faculty" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
-          <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
+          <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={Link} to="/faculty/subjects" 
+        <ListItem button component={NavLink} to="/faculty/subjects" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <Home sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="View Assigned Subjects" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/question-paper" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <Group sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Configure QP patterns" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/marks" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <School sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Manage marks" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/attendance" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <Settings sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Take Attendance" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/freeze" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <Settings sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Freeze Marks" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/generate" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <Settings sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Generate reports" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/faculty/course-file" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <Book sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="View Assigned Subjects" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/question-paper" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Assignment sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Configure Question Paper Patterns" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/marks" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Edit sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage Marks" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/attendance" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <CheckCircle sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Take Attendance" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/freeze-marks" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <BarChart sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Freeze Marks" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/reports" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Description sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Generate Reports" />
-        </ListItem>
-        <ListItem button component={Link} to="/faculty/course-file" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Description sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Generate Final Course File" />
+          <ListItemText primary="Generate Course File" />
         </ListItem>
       </List>
     </Drawer>
@@ -161,7 +126,7 @@ function TopBar() {
     <AppBar position="static" sx={{ background: "#1e1e1e" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6" color="#FFA500">Faculty Dashboard</Typography>
-        <Button color="inherit" onClick={() => navigate("/")}>Logout</Button>
+        <Button color="inherit" onClick={() => navigate("/")}>Logout <ExitToApp sx={{ marginLeft: 1 }} /></Button>
       </Toolbar>
     </AppBar>
   );
@@ -169,23 +134,31 @@ function TopBar() {
 
 function FacultyDashboard() {
   return (
-    <div style={{ backgroundColor: "#121212", height: "100vh" }}>
+    <div style={{ backgroundColor: "#121212", height: "100vh", display: "flex", flexDirection: "column" }}>
       <TopBar />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
-        <div style={{ marginLeft: "10px", flex: 1, padding: "20px" }}>
+        <div style={{ flex: 1, padding: "20px" }}>
           <Routes>
             <Route path="/" element={<FacultyHome />} />
-            <Route path="subjects" element={<ViewSubjects />} />
-            <Route path="question-paper" element={<ConfigureQuestionPaper />} />
-            <Route path="marks" element={<ManageMarks />} />
-            <Route path="attendance" element={<TakeAttendance />} />
-            <Route path="freeze-marks" element={<FreezeMarks />} />
-            <Route path="reports" element={<GenerateReports />} />
-            <Route path="course-file" element={<GenerateFinalCourseFile />} />
+            <Route path="subjects" element={<PageContainer title="View Assigned Subjects" />} />
+            <Route path="question-paper" element={<PageContainer title="Configure Question Paper Patterns" />} />
+            <Route path="marks" element={<PageContainer title="Manage Marks" />} />
+            <Route path="attendance" element={<PageContainer title="Take Attendance" />} />
+            <Route path="freeze-marks" element={<PageContainer title="Freeze Marks" />} />
+            <Route path="reports" element={<PageContainer title="Generate Reports" />} />
+            <Route path="course-file" element={<PageContainer title="Generate Final Course File" />} />
           </Routes>
         </div>
       </div>
+    </div>
+  );
+}
+
+function PageContainer({ title }) {
+  return (
+    <div style={{ padding: "30px", backgroundColor: "#121212", height: "100vh" }}>
+      <Typography variant="h4" color="#FFA500">{title}</Typography>
     </div>
   );
 }
