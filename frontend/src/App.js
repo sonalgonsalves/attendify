@@ -12,6 +12,7 @@ import PendingStudents from "./PendingStudents";
 
 import TakeAttendance from "./TakeAttendance";
 import ViewAttendance from "./ViewAttendance";
+import ManageFaculty from "./ManageFaculty";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/faculty" element={<ManageFaculty />} />
         <Route path="/admin/ApproveStudents" element={<ApproveStudents />} />
         <Route path="/students/approved" element={<ApprovedStudents />} />
         <Route path="/hod" element={<HodDashboard />} />

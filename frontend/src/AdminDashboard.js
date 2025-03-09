@@ -45,7 +45,7 @@ const cardStyle = {
 function ManageDepartments() {
   return (
     <div style={{ padding: "30px", backgroundColor: "#121212", height: "100vh" }}>
-      <Typography variant="h4" color="#FFA500">Manage Departments</Typography>
+      <Typography variant="h4" color="#FFA500">Manage Faculty</Typography>
     </div>
   );
 }
@@ -53,7 +53,7 @@ function ManageDepartments() {
 function ManageUsers() {
   return (
     <div style={{ padding: "30px", backgroundColor: "#121212", height: "100vh" }}>
-      <Typography variant="h4" color="#FFA500">Manage Users</Typography>
+      <Typography variant="h4" color="#FFA500">Manage Students</Typography>
     </div>
   );
 }
@@ -66,13 +66,6 @@ function ApproveStudents() {
   );
 }
 
-function SystemConfiguration() {
-  return (
-    <div style={{ padding: "30px", backgroundColor: "#121212", height: "100vh" }}>
-      <Typography variant="h4" color="#FFA500">System Configuration</Typography>
-    </div>
-  );
-}
 
 function Sidebar() {
   return (
@@ -89,21 +82,21 @@ function Sidebar() {
           <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={NavLink} to="/admin/departments" 
+        <ListItem button component={NavLink} to="/admin/faculty" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <Home sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage Departments" />
+          <ListItemText primary="Manage Faculty" />
         </ListItem>
-        <ListItem button component={NavLink} to="/admin/users" 
+        <ListItem button component={NavLink} to="/students/approved" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <Group sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage Users" />
+          <ListItemText primary="Manage Students" />
         </ListItem>
         <ListItem button component={NavLink} to="/admin/ApproveStudents" 
           style={({ isActive }) => ({
@@ -112,14 +105,6 @@ function Sidebar() {
           })}>
           <School sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Approve Students" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/admin/settings" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Settings sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="System Configuration" />
         </ListItem>
       </List>
     </Drawer>
@@ -151,7 +136,6 @@ function AdminDashboard() {
             <Route path="departments" element={<ManageDepartments />} />
             <Route path="users" element={<ManageUsers />} />
             <Route path="students" element={<ApproveStudents />} />
-            <Route path="settings" element={<SystemConfiguration />} />
           </Routes>
         </div>
       </div>
