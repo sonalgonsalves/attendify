@@ -51,7 +51,7 @@ function Sidebar() {
         Student Panel
       </Box>
       <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-        <ListItem button component={NavLink} to="/student" 
+        <ListItem button component={NavLink} to="/student/dashboard" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
@@ -59,13 +59,13 @@ function Sidebar() {
           <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={NavLink} to="/student/marks" 
+        <ListItem button component={NavLink} to="/student/attendance" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <Assessment sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="View Marks and Attendance" />
+          <ListItemText primary="View SAttendance" />
         </ListItem>
       </List>
     </Drawer>

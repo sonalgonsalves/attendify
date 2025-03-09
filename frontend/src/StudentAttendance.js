@@ -21,11 +21,11 @@ import {
     Button,
 } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom"; // Import NavLink for routing
-import { Dashboard, School, People, BarChart, Assignment, Logout, Assessment } from "@mui/icons-material";
+import { Dashboard as DashboardIcon, School, People, BarChart, Assignment, Logout, Assessment } from "@mui/icons-material";
 
 const API_BASE_URL = "http://localhost:5000/api"; // Adjust if needed
 
-function ViewAttendance() {
+function StudentAttendance() {
     const [attendanceRecords, setAttendanceRecords] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -53,66 +53,41 @@ function ViewAttendance() {
         ? attendanceRecords.filter(record => record.date === filterDate)
         : attendanceRecords;
 
-    // Sidebar component
-    const Sidebar = () => {
-        return (
-            <Drawer variant="permanent" anchor="left" sx={{ width: 250, bgcolor: "#1e1e1e", color: "white" }}>
-                <Box sx={{ padding: "20px", textAlign: "center", bgcolor: "#121212", color: "#FFA500", fontSize: "20px", fontWeight: "bold" }}>
-                    HOD Panel
-                </Box>
-                <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-                    <ListItem button component={NavLink} to="/hod/dashboard" 
-                        style={({ isActive }) => ({
-                            backgroundColor: isActive ? "#FFA500" : "transparent",
-                            color: isActive ? "#000000" : "#FFA500"
-                        })}>
-                        <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
-                        <ListItemText primary="Dashboard" />
-                    </ListItem>
-                    <ListItem button component={NavLink} to="/hod/ManageStudents" 
-                        style={({ isActive }) => ({
-                            backgroundColor: isActive ? "#FFA500" : "transparent",
-                            color: isActive ? "#000000" : "#FFA500"
-                        })}>
-                        <People sx={{ marginRight: 1, color: "inherit" }} />
-                        <ListItemText primary="Manage Students" />
-                    </ListItem>
-                    <ListItem button component={NavLink} to="/hod/pendingStudents" 
-                        style={({ isActive }) => ({
-                            backgroundColor: isActive ? "#FFA500" : "transparent",
-                            color: isActive ? "#000000" : "#FFA500"
-                        })}>
-                        <School sx={{ marginRight: 1, color: "inherit" }} />
-                        <ListItemText primary="Pending Students" />
-                    </ListItem>
-                    <ListItem button component={NavLink} to="/hod/faculty" 
-                        style={({ isActive }) => ({
-                            backgroundColor: isActive ? "#FFA500" : "transparent",
-                            color: isActive ? "#000000" : "#FFA500"
-                        })}>
-                        <Assignment sx={{ marginRight: 1, color: "inherit" }} />
-                        <ListItemText primary="View Faculty" />
-                    </ListItem>
-                    <ListItem button component={NavLink} to="/hod/reports" 
-                        style={({ isActive }) => ({
-                            backgroundColor: isActive ? "#FFA500" : "transparent",
-                            color: isActive ? "#000000" : "#FFA500"
-                        })}>
-                        <BarChart sx={{ marginRight: 1, color: "inherit" }} />
-                        <ListItemText primary="View Attendance" />
-                    </ListItem>
-                </List>
-            </Drawer>
-        );
-    };
+    function Sidebar() {
+      return (
+        <Drawer variant="permanent" anchor="left" sx={{ width: 250, bgcolor: "#1e1e1e", color: "white" }}>
+          <Box sx={{ padding: "20px", textAlign: "center", bgcolor: "#121212", color: "#FFA500", fontSize: "20px", fontWeight: "bold" }}>
+            Student Panel
+          </Box>
+          <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
+            <ListItem button component={NavLink} to="/student/dashboard" 
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#FFA500" : "transparent",
+                color: isActive ? "#000000" : "#FFA500"
+              })}>
+              <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/student/attendance" 
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? "#FFA500" : "transparent",
+                color: isActive ? "#000000" : "#FFA500"
+              })}>
+              <Assessment sx={{ marginRight: 1, color: "inherit" }} />
+              <ListItemText primary="View Attendance" />
+            </ListItem>
+          </List>
+        </Drawer>
+      );
+    }
 
     return (
         <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#121212", color: "#FFA500" }}>
-            <Sidebar /> {/* Use the Sidebar component directly */}
+            <Sidebar /> 
             <Box sx={{ flexGrow: 1, p: 3 }}>
                 <AppBar position="static" sx={{ backgroundColor: "#121212", width: "100%" }}>
                     <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                        <Typography variant="h6" color="#FFA500">HOD Dashboard</Typography>
+                        <Typography variant="h6" color="#FFA500">VIEW ATTENDANCE</Typography>
                         <Button color="inherit" onClick={() => navigate("/")}>Logout <Logout sx={{ marginLeft: 1 }} /></Button>
                     </Toolbar>
                 </AppBar>
@@ -165,4 +140,4 @@ function ViewAttendance() {
     );
 }
 
-export default ViewAttendance;
+export default StudentAttendance;
