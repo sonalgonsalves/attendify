@@ -86,4 +86,15 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET: Fetch only pending students
+router.get("/pending", async (req, res) => {
+  try {
+    const students = await Student.find({ status: "Pending" }).lean();
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 module.exports = router;

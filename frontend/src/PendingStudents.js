@@ -1,59 +1,62 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid';
-import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, AppBar, Toolbar, Typography, Box } from "@mui/material";
+import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, AppBar, Toolbar, Typography, Box, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavLink, useNavigate } from "react-router-dom";
-import { Drawer, List, ListItem, ListItemText } from "@mui/material";
+import { Dashboard, People, Assignment, School, BarChart } from "@mui/icons-material";
 
-// Add the missing icon imports
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import HomeIcon from '@mui/icons-material/Home';
-import GroupIcon from '@mui/icons-material/Group';
-import SchoolIcon from '@mui/icons-material/School';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+const API_BASE_URL = "http://localhost:5000";
 
-const API_BASE_URL = "http://localhost:5000"; 
-
-const Sidebar = () => (
-  <Drawer variant="permanent" anchor="left" sx={{ width: 250, bgcolor: "#1e1e1e", color: "white" }}>
-    <Box sx={{ padding: "20px", textAlign: "center", bgcolor: "#121212", color: "#FFA500", fontSize: "20px", fontWeight: "bold" }}>
-      Admin Panel
-    </Box>
-    <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-      {[
-        { to: "/admin/dashboard", icon: <DashboardIcon />, label: "Dashboard" },
-        { to: "/admin/departments", icon: <HomeIcon />, label: "Manage Departments" },
-        { to: "/students/approved", icon: <GroupIcon />, label: "Manage Users" },
-        { to: "/admin/ApproveStudents", icon: <SchoolIcon />, label: "Approve Students" },
-        { to: "/admin/settings", icon: <SettingsIcon />, label: "System Configuration" }
-      ].map(({ to, icon, label }) => (
-        <ListItem
-          button
-          key={to}
-          component={NavLink}
-          to={to}
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}
-        >
-          {icon}
-          <ListItemText primary={label} sx={{ marginLeft: 1 }} />
-        </ListItem>
-      ))}
-    </List>
-  </Drawer>
-);
-
-function ApprovedStudents() {
+function PendingStudents() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [open, setOpen] = useState(false);
   const [editedData, setEditedData] = useState({ name: '', rollNumber: '', department: '', batch: '' });
-  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchPendingStudents();
+  }, []);
+
+  const fetchPendingStudents = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/students/pending`);
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching pending students:", error);
+    }
+  };
+
+  const handleEdit = (student) => {
+    setEditedData({ ...student });
+    setSelectedStudent(student);
+    setOpen(true);
+  };
+
+  const handleDelete = async (student) => {
+    if (window.confirm(`Are you sure you want to delete ${student.name}?`)) {
+      try {
+        await axios.delete(`${API_BASE_URL}/students/${student._id}`);
+        fetchPendingStudents();
+      } catch (error) {
+        console.error("Error deleting student:", error);
+      }
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.put(`${API_BASE_URL}/students/update/${selectedStudent._id}`, editedData);
+      fetchPendingStudents();
+      setOpen(false);
+    } catch (error) {
+      console.error("Error updating student:", error);
+    }
+  };
+
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'rollNumber', headerName: 'USN', width: 200 },
@@ -77,68 +80,42 @@ function ApprovedStudents() {
     },
   ];
 
-  useEffect(() => {
-    fetchApprovedStudents();
-  }, []);
-
-  const fetchApprovedStudents = async () => {
-    try {
-      const apiUrl = `${API_BASE_URL}/students/approved`;
-      console.log("Fetching data from:", apiUrl); // Debugging URL
-      const response = await axios.get(apiUrl);
-      setStudents(response.data);
-    } catch (error) {
-      console.error("Error fetching approved students:", error);
-    }
-  };
-
-  const handleEdit = (student) => {
-    setEditedData({ ...student });
-    setSelectedStudent(student);
-    setOpen(true);
-  };
-
-  const handleDelete = async (student) => {
-    if (window.confirm(`Are you sure you want to delete ${student.name}?`)) {
-      try {
-        await axios.delete(`${API_BASE_URL}/students/${student._id}`);
-        fetchApprovedStudents();
-      } catch (error) {
-        console.error("Error deleting student:", error);
-      }
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    handleUpdate();
-  };
-
-  const handleUpdate = async () => {
-    try {
-      await axios.put(`${API_BASE_URL}/students/update/${selectedStudent._id}`, editedData);
-      fetchApprovedStudents();
-      setOpen(false);
-    } catch (error) {
-      console.error("Error updating student:", error);
-    }
-  };
-
-  const navigate = useNavigate();
-
   return (
     <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#121212", color: "#FFA500" }}>
-      <Sidebar />
-      <Box p={3} sx={{ flexGrow: 1 }}>
+      <Drawer variant="permanent" anchor="left" sx={{ width: 250, bgcolor: "#1e1e1e", color: "white" }}>
+        <Box sx={{ padding: "20px", textAlign: "center", bgcolor: "#121212", color: "#FFA500", fontSize: "20px", fontWeight: "bold" }}>
+          HOD Panel
+        </Box>
+        <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
+          <ListItem button component={NavLink} to="/hod" sx={{ color: "#FFA500" }}>
+            <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/hod/departments" sx={{ color: "#FFA500" }}>
+            <Assignment sx={{ marginRight: 1, color: "inherit" }} />
+            <ListItemText primary="Configure Evaluation" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/hod/faculty" sx={{ color: "#FFA500" }}>
+            <People sx={{ marginRight: 1, color: "inherit" }} />
+            <ListItemText primary="Manage Faculty" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/hod/students" sx={{ color: "#FFA500" }}>
+            <School sx={{ marginRight: 1, color: "inherit" }} />
+            <ListItemText primary="Manage Students" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/hod/reports" sx={{ color: "#FFA500" }}>
+            <BarChart sx={{ marginRight: 1, color: "inherit" }} />
+            <ListItemText primary="manage Reports" />
+          </ListItem>
+        </List>
+      </Drawer>
+      <Box sx={{ flexGrow: 1, p: 3 }}>
         <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="h5" color="#FFA500">APPROVED STUDENTS</Typography>
-            <Button color="inherit" onClick={() => navigate("/")}>
-              Logout <ExitToAppIcon sx={{ marginLeft: 1 }} />
-            </Button>
+            <Typography variant="h5" color="#FFA500">PENDING STUDENTS</Typography>
+            <Button color="inherit" onClick={() => navigate("/")}>Logout</Button>
           </Toolbar>
         </AppBar>
-
         <div style={{ height: 400, width: '100%', marginTop: 20 }}>
           <DataGrid
             rows={students}
@@ -161,13 +138,9 @@ function ApprovedStudents() {
                 color: '#000000', // Header title text color
                 fontWeight: 'bold',
               },
-              '.MuiDataGrid-iconButton': {
-                color: '#FFA500', // Icon button color
-              }
             }}
           />
         </div>
-
         <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle sx={{ backgroundColor: '#121212', color: '#FFA500' }}>Edit Student</DialogTitle>
           <DialogContent sx={{ backgroundColor: '#121212' }}>
@@ -194,7 +167,7 @@ function ApprovedStudents() {
                 }
               }}
               InputLabelProps={{
-                style: { color: '#FFA500' }
+                style: { color: '#FFA500' } // Set label color to orange
               }}
             />
             <TextField 
@@ -220,7 +193,7 @@ function ApprovedStudents() {
                 }
               }}
               InputLabelProps={{
-                style: { color: '#FFA500' }
+                style: { color: '#FFA500' } // Set label color to orange
               }}
             />
             <TextField 
@@ -246,7 +219,7 @@ function ApprovedStudents() {
                 }
               }}
               InputLabelProps={{
-                style: { color: '#FFA500' }
+                style: { color: '#FFA500' } // Set label color to orange
               }}
             />
             <TextField 
@@ -266,19 +239,19 @@ function ApprovedStudents() {
                   '&:hover fieldset': {
                     borderColor: '#FFA500',
                   },
-                  '&.Mui-focused field set': {
+                  '&.Mui-focused fieldset': {
                     borderColor: '#FFA500',
                   }
                 }
               }}
               InputLabelProps={{
-                style: { color: '#FFA500' }
+                style: { color: '#FFA500' } // Set label color to orange
               }}
             />
           </DialogContent>
           <DialogActions sx={{ backgroundColor: '#121212' }}>
-            <Button onClick={() => setOpen(false)} sx={{ color: '#FFA500' }}>Cancel</Button>
-            <Button onClick={handleSubmit} sx={{ color: '#FFA500' }}>Save</Button>
+            <Button onClick={() => setOpen(false)} sx={{ borderColor: '#FFA500', color: '#FFA500' }}>Cancel</Button>
+            <Button onClick={handleSubmit} sx={{ backgroundColor: '#FFA500', color: '#121212' }}>Update</Button>
           </DialogActions>
         </Dialog>
       </Box>
@@ -286,4 +259,4 @@ function ApprovedStudents() {
   );
 }
 
-export default ApprovedStudents;
+export default PendingStudents;
