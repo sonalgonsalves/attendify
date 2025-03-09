@@ -6,6 +6,7 @@ const AttendanceSchema = new mongoose.Schema({
     students: [
         {
             studentId: mongoose.Schema.Types.ObjectId,
+            name: String,
             present: Boolean
         }
     ]
