@@ -16,7 +16,8 @@ import {
     Drawer,
     List,
     ListItem,
-    ListItemText
+    ListItemText,
+    TextField,
 } from "@mui/material";
 import { NavLink } from "react-router-dom"; // Import NavLink for routing
 import DashboardIcon from "@mui/icons-material/Dashboard"; // Import icons
@@ -61,6 +62,7 @@ function ViewAttendance() {
     const [attendanceRecords, setAttendanceRecords] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [filterDate, setFilterDate] = useState(""); // State for the date filter
 
     const fetchAttendanceRecords = async () => {
         try {
@@ -78,6 +80,11 @@ function ViewAttendance() {
         fetchAttendanceRecords();
     }, []);
 
+    // Filter records based on the selected date
+    const filteredRecords = filterDate
+        ? attendanceRecords.filter(record => record.date === filterDate)
+        : attendanceRecords;
+
     return (
         <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#121212", color: "#FFA500" }}>
             <Sidebar />
@@ -89,8 +96,16 @@ function ViewAttendance() {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-
+                <TextField
+                        type="date"
+                        value={filterDate}
+                        onChange={(e) => setFilterDate(e.target.value)}
+                        sx={{ marginTop:"30px", marginLeft:"20px", input: { color: "#FFA500" }, backgroundColor: "#1e1e1e", borderRadius: 1 }}
+                    />
                 <Box sx={{ p: 3, width: "80%", backgroundColor: "#1e1e1e", boxShadow: 3, borderRadius: 2, mt: 5 }}>
+                    {/* Date Filter */}
+
+
                     <Typography variant="h6" sx={{ color: "#FFA500", textAlign: "center", fontWeight: "bold", mb: 2 }}>Attendance Records</Typography>
 
                     {loading ? (
@@ -104,18 +119,20 @@ function ViewAttendance() {
                             <Table sx={{ minWidth: 650 }} aria-label="attendance records table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Department</TableCell>
+                                        <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Semester</TableCell>
                                         <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Date</TableCell>
+                                        <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Subjects</TableCell>
                                         <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Student Name</TableCell>
                                         <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Status</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {attendanceRecords.map((record) => (
+                                    {filteredRecords.map((record) => (
                                         record.students.map((student) => (
                                             <TableRow key={student.studentId} sx={{ '&:hover': { backgroundColor: '#333' } }}>
-                                                <TableCell sx={{ color: "#FFA500" }}>{record.department}</TableCell>
+                                                <TableCell sx={{ color: "#FFA500" }}>{record.semester}</TableCell>
                                                 <TableCell sx={{ color: "#FFA500" }}>{record.date}</TableCell>
+                                                <TableCell sx={{ color: "#FFA500" }}>{record.subjects.join(', ')}</TableCell>
                                                 <TableCell sx={{ color: "#FFA500" }}>{student.name}</TableCell>
                                                 <TableCell sx={{ color: "#FFA500" }}>{student.present ? "Present" : "Absent"}</TableCell>
                                             </TableRow>
