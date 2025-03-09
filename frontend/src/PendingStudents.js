@@ -87,28 +87,49 @@ function PendingStudents() {
         <Box sx={{ padding: "20px", textAlign: "center", bgcolor: "#121212", color: "#FFA500", fontSize: "20px", fontWeight: "bold" }}>
           HOD Panel
         </Box>
-        <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-          <ListItem button component={NavLink} to="/hod" sx={{ color: "#FFA500" }}>
-            <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/hod/departments" sx={{ color: "#FFA500" }}>
-            <Assignment sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="Configure Evaluation" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/hod/faculty" sx={{ color: "#FFA500" }}>
-            <People sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="Manage Faculty" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/hod/students" sx={{ color: "#FFA500" }}>
-            <School sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="Manage Students" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/hod/pendingStudents" sx={{ color: "#FFA500" }}>
-            <BarChart sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="Pending Students" />
-          </ListItem>
-        </List>
+              <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
+                <ListItem button component={NavLink} to="/hod" 
+                  style={({ isActive }) => ({
+                    backgroundColor: isActive ? "#FFA500" : "transparent",
+                    color: isActive ? "#000000" : "#FFA500"
+                  })}>
+                  <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
+                  <ListItemText primary="Dashboard" />
+                </ListItem>
+                
+                <ListItem button component={NavLink} to="/hod/ManageStudents" 
+                  style={({ isActive }) => ({
+                    backgroundColor: isActive ? "#FFA500" : "transparent",
+                    color: isActive ? "#000000" : "#FFA500"
+                  })}>
+                  <People sx={{ marginRight: 1, color: "inherit" }} />
+                  <ListItemText primary="Manage Students" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/hod/pendingStudents" 
+                  style={({ isActive }) => ({
+                    backgroundColor: isActive ? "#FFA500" : "transparent",
+                    color: isActive ? "#000000" : "#FFA500"
+                  })}>
+                  <School sx={{ marginRight: 1, color: "inherit" }} />
+                  <ListItemText primary="Pending Students" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/hod/departments" 
+                  style={({ isActive }) => ({
+                    backgroundColor: isActive ? "#FFA500" : "transparent",
+                    color: isActive ? "#000000" : "#FFA500"
+                  })}>
+                  <Assignment sx={{ marginRight: 1, color: "inherit" }} />
+                  <ListItemText primary="View Faculty" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/hod/reports" 
+                  style={({ isActive }) => ({
+                    backgroundColor: isActive ? "#FFA500" : "transparent",
+                    color: isActive ? "#000000" : "#FFA500"
+                  })}>
+                  <BarChart sx={{ marginRight: 1, color: "inherit" }} />
+                  <ListItemText primary="View Attendance" />
+                </ListItem>
+              </List>
       </Drawer>
       <Box sx={{ flexGrow: 1, p: 3 }}>
         <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
