@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Attendance = require("../models/attendance");
-const Student = require("../models/students"); // Make sure this model exists
+const Student = require("../models/students"); // Ensure this model exists
 
 // Fetch approved students by department
 router.get("/students/approved", async (req, res) => {
@@ -51,12 +51,13 @@ router.post("/attendance/update", async (req, res) => {
     }
 });
 
-// Fetch attendance records
-router.get("/attendance/view", async (req, res) => {
+// In your backend router file
+router.get("/attendance", async (req, res) => {
     try {
-        const attendance = await Attendance.find({});
-        res.json(attendance);
+        const attendanceRecords = await Attendance.find();
+        res.json(attendanceRecords);
     } catch (error) {
+        console.error("Error fetching attendance records:", error);
         res.status(500).json({ error: "Failed to fetch attendance records" });
     }
 });
