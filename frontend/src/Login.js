@@ -1,65 +1,98 @@
 import { Box, Container, Grid, TextField, Button, Typography, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ExitToApp } from "@mui/icons-material";
+import axios from "axios";
 
 function Login() {
     const navigate = useNavigate();
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState(""); // Changed from name to username for clarity
     const [role, setRole] = useState("");
-    const [password, setPassword] = useState("");
+    const [dob, setDob] = useState(""); // Changed from password to dob
 
-    const [errors, setErrors] = useState({ name: "", role: "", password: "" });
+    const [errors, setErrors] = useState({ username: "", role: "", dob: "" });
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-
+    
         // validations
-        let validationErrors = { name: "", role: "", password: "" };
+        let validationErrors = { username: "", role: "", dob: "" };
         let isValid = true;
-
-        if (!name) {
-            validationErrors.name = "Username is required";
+    
+        if (!username) {
+            validationErrors.username = "Username is required";
             isValid = false;
         }
         if (!role) {
             validationErrors.role = "Role is required";
             isValid = false;
         }
-        if (!password) {
-            validationErrors.password = "Password is required";
+        if (!dob) {
+            validationErrors.dob = "Password is required";
             isValid = false;
         }
-
+    
         if (!isValid) {
             setErrors(validationErrors);
             return;
         }
-
-        // Role check
-        if (role === "Admin") {
-            alert("Admin login successful!");
-            navigate('/admin/dashboard');
-            return;
-        } else if (role === "HOD") {
-            alert("HOD login successful!");
-            navigate('/hod');
-            return;
-        } else if (role === "Faculty") {
-            alert("Faculty login successful!");
-            navigate('/faculty');
-            return;
-        } else if (role === "Student") {
-            alert("Student login successful!");
-            navigate('/student');
-            return;
-        } else if (role === "Exam") {
-            alert("Exam Staff login successful!");
-            navigate('/exam');
-            return;
+    
+        try {
+            // Role check
+            if (role === "Admin") {
+                // Predefined admin credentials
+                const adminUsername = "admin";
+                const adminPassword = "admin123"; // Predefined password
+    
+                if (username === adminUsername && dob === adminPassword) {
+                    alert("Admin login successful!");
+                    navigate('/admin/dashboard');
+                } else {
+                    alert("Invalid admin credentials");
+                }
+                return;
+            } else if (role === "HOD") {
+                // Predefined HOD credentials
+                const hodUsername = "hod";
+                const hodPassword = "hod123"; // Predefined password
+    
+                if (username === hodUsername && dob === hodPassword) {
+                    alert("HOD login successful!");
+                    navigate('/hod');
+                } else {
+                    alert("Invalid HOD credentials");
+                }
+                return;
+            } else if (role === "Student") {
+                // Logic to check student credentials
+                const response = await axios.post('http://localhost:5000/auth/login', { role, username, dob });
+                if (response.data.success) {
+                    alert("Student login successful!");
+                    navigate('/student');
+                } else {
+                    alert("Invalid student credentials");
+                }
+                return;
+            } else if (role === "Faculty") {
+                // Logic to check faculty credentials
+                const response = await axios.post('http://localhost:5000/auth/login', { role, username, dob });
+                if (response.data.success) {
+                    alert("Faculty login successful!");
+                    navigate('/faculty');
+                } else {
+                    alert("Invalid faculty credentials");
+                }
+                return;
+            } else if (role === "Exam") {
+                alert("Exam Staff login successful!");
+                navigate('/exam');
+                return;
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("An error occurred during login. Please try again.");
         }
     };
-
+    
     return (
         <Container maxWidth="xl" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: "#000000" }}>
             <Box sx={{ bgcolor: "#1e1e1e", padding: 3, borderRadius: 2 }}>
@@ -71,12 +104,12 @@ function Login() {
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
-                                label="Username"
+                                label={role === "Student" ? "USN" : role === "Faculty" ? "Name" : "Username"}
                                 fullWidth
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                error={!!errors.name}
-                                helperText={errors.name}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                error={!!errors.username}
+                                helperText={errors.username}
                                 sx={{ bgcolor: "#1e1e1e", color: "#FFA500" }}
                                 InputLabelProps={{ style: { color: "#FFA500" } }} // Label color
                                 InputProps={{ style: { color: "#FFA500" } }} // Input text color
@@ -96,7 +129,6 @@ function Login() {
                                     <MenuItem value={"HOD"}>HOD</MenuItem>
                                     <MenuItem value={"Faculty"}>Faculty</MenuItem>
                                     <MenuItem value={"Student"}>Student</MenuItem>
-                                    <MenuItem value={"Exam"}>Exam Department Staff</MenuItem>
                                 </Select>
                                 {errors.role && <FormHelperText>{errors.role}</FormHelperText>}
                             </FormControl>
@@ -105,12 +137,12 @@ function Login() {
                             <TextField
                                 variant="outlined"
                                 label="Password"
-                                type="password"
+                                type="text"
                                 fullWidth
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                error={!!errors.password}
-                                helperText={errors.password}
+                                value={dob}
+                                onChange={(e) => setDob(e.target.value)}
+                                error={!!errors.dob}
+                                helperText={errors.dob}
                                 sx={{ bgcolor: "#1e1e1e", color: "#FFA500" }}
                                 InputLabelProps={{ style: { color: "#FFA500" } }} // Label color
                                 InputProps={{ style: { color: "#FFA500" } }} // Input text color
