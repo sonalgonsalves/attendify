@@ -8,13 +8,10 @@ import ExamDashboard from "./ExamDashboard";
 import ManageStudents from "./ManageStudents";
 import ApproveStudents from "./ApproveStudents";
 import ApprovedStudents from "./ApprovedStudents";
-<<<<<<< HEAD
 import PendingStudents from "./PendingStudents"; 
 
-=======
 import TakeAttendance from "./TakeAttendance";
 import ViewAttendance from "./ViewAttendance";
->>>>>>> e05e126725cd313b95ae8c69f9cbfd288ac05c15
 
 function App() {
   return (
