@@ -25,10 +25,9 @@ const Sidebar = () => (
     <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
       {[
         { to: "/admin/dashboard", icon: <DashboardIcon />, label: "Dashboard" },
-        { to: "/admin/departments", icon: <HomeIcon />, label: "Manage Departments" },
-        { to: "/students/approved", icon: <GroupIcon />, label: "Manage Users" },
+        { to: "/admin/faculty", icon: <HomeIcon />, label: "Manage Faculty" },
+        { to: "/students/approved", icon: <GroupIcon />, label: "Manage Students" },
         { to: "/admin/ApproveStudents", icon: <SchoolIcon />, label: "Approve Students" },
-        { to: "/admin/settings", icon: <SettingsIcon />, label: "System Configuration" }
       ].map(({ to, icon, label }) => (
         <ListItem
           button
