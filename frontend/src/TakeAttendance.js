@@ -19,25 +19,24 @@ function TakeAttendance() {
         }
     
         try {
-            const response = await axios.get(`${API_BASE_URL}/students/approved?department=${department}`);
+            const response = await axios.get(`${API_BASE_URL}/students/approved`, { params: { department } });
     
-            if (response.data.length === 0) {
+            if (!response.data || response.data.length === 0) {
                 alert("No approved students found for this department.");
                 setStudents([]);
                 return;
             }
     
-            const filteredStudents = response.data.filter(student => student.department === department);
-    
-            setStudents(filteredStudents.map(student => ({
+            setStudents(response.data.map(student => ({
                 ...student,
                 present: false,
             })));
         } catch (error) {
             console.error("Error fetching students:", error);
-            alert("Failed to fetch students.");
+            alert(`Failed to fetch students. ${error.response?.data?.error || error.message}`);
         }
     };
+    
     
     const handleCheckboxChange = (index) => {
         setStudents(prevStudents =>

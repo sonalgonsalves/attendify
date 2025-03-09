@@ -1,6 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const Attendance = require("../models/attendance");
+const Student = require("../models/students"); // Make sure this model exists
+
+// Fetch approved students by department
+router.get("/students/approved", async (req, res) => {
+    const { department } = req.query;
+
+    if (!department) {
+        return res.status(400).json({ error: "Department is required" });
+    }
+
+    try {
+        const approvedStudents = await Student.find({ department, status: "Approved" });
+
+        if (approvedStudents.length === 0) {
+            return res.status(404).json({ error: "No approved students found" });
+        }
+
+        res.json(approvedStudents);
+    } catch (error) {
+        console.error("Error fetching students:", error);
+        res.status(500).json({ error: "Failed to fetch students" });
+    }
+});
 
 // Update or insert attendance
 router.post("/attendance/update", async (req, res) => {
