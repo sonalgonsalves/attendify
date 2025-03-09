@@ -3,16 +3,16 @@ const router = express.Router();
 const Attendance = require("../models/attendance");
 const Student = require("../models/students");
 
-// Fetch approved students by department
+// Fetch approved students by semester
 router.get("/students/approved", async (req, res) => {
-    const { department } = req.query;
+    const { semester } = req.query;
 
-    if (!department) {
-        return res.status(400).json({ error: "Department is required" });
+    if (!semester) {
+        return res.status(400).json({ error: "Semester is required" });
     }
 
     try {
-        const approvedStudents = await Student.find({ department, status: "Approved" });
+        const approvedStudents = await Student.find({ semester, status: "Approved" });
 
         if (approvedStudents.length === 0) {
             return res.status(404).json({ error: "No approved students found" });
@@ -25,22 +25,24 @@ router.get("/students/approved", async (req, res) => {
     }
 });
 
+// Update attendance
 router.post("/attendance/update", async (req, res) => {
-    const { department, date, students } = req.body;
+    const { semester, date, subjects, students } = req.body;
 
-    if (!department || !date || !students || students.length === 0) {
+    if (!semester || !date || !students || students.length === 0) {
         return res.status(400).json({ error: "Missing required fields or empty student list" });
     }
 
     try {
-        const existingAttendance = await Attendance.findOne({ department, date });
+        const existingAttendance = await Attendance.findOne({ semester, date });
 
         if (existingAttendance) {
             existingAttendance.students = students;
+            existingAttendance.subjects = subjects; // Update subjects as well
             await existingAttendance.save();
             return res.json({ message: "Attendance updated successfully!" });
         } else {
-            const newAttendance = new Attendance({ department, date, students });
+            const newAttendance = new Attendance({ semester, date, subjects, students });
             await newAttendance.save();
             return res.json({ message: "Attendance saved successfully!" });
         }
@@ -50,6 +52,7 @@ router.post("/attendance/update", async (req, res) => {
     }
 });
 
+// Fetch all attendance records
 router.get("/attendance", async (req, res) => {
     try {
         const attendanceRecords = await Attendance.find();

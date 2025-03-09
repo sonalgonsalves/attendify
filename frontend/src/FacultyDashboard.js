@@ -66,22 +66,6 @@ function Sidebar() {
           <Home sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="View Assigned Subjects" />
         </ListItem>
-        <ListItem button component={NavLink} to="/faculty/question-paper" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Group sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Configure QP patterns" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/faculty/marks" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <School sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage marks" />
-        </ListItem>
         <ListItem button component={NavLink} to="/faculty/attendance" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
@@ -89,30 +73,6 @@ function Sidebar() {
           })}>
           <Settings sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Take Attendance" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/faculty/freeze" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Settings sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Freeze Marks" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/faculty/generate" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Settings sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Generate reports" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/faculty/course-file" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <Book sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Generate Course File" />
         </ListItem>
       </List>
     </Drawer>
