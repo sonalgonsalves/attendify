@@ -131,7 +131,7 @@ function ApprovedStudents() {
       <Box p={3} sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="h5" color="#FFA500">APPROVED STUDENTS</Typography>
+            <Typography variant="h5" color="#FFA500">MANAGE APPROVED STUDENTS</Typography>
             <Button color="inherit" onClick={() => navigate("/")}>
               Logout <ExitToAppIcon sx={{ marginLeft: 1 }} />
             </Button>
