@@ -51,14 +51,14 @@ const ApproveStudents = () => {
   const [departmentFilter, setDepartmentFilter] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/students")
+    axios.get("http://localhost:5000/students")
       .then(response => setStudents(response.data))
       .catch(error => console.error("Error fetching students:", error));
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/students/updateStatus", { id, status: newStatus });
+      const response = await axios.post("http://localhost:5000/students/updateStatus", { id, status: newStatus });
       setStudents(prevStudents =>
         prevStudents.map(student =>
           student._id === response.data._id ? { ...student, status: response.data.status } : student

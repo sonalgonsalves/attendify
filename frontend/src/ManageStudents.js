@@ -40,7 +40,7 @@ const ManageStudents = () => {
     if (!validateForm()) return;
   
     try {
-      const response = await axios.post("http://localhost:5000/api/students", formData);
+      const response = await axios.post("http://localhost:5000/students", formData);
       console.log("Student Details Submitted:", response.data);
   
       setIsModalOpen(true);
