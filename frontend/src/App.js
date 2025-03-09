@@ -8,8 +8,13 @@ import ExamDashboard from "./ExamDashboard";
 import ManageStudents from "./ManageStudents";
 import ApproveStudents from "./ApproveStudents";
 import ApprovedStudents from "./ApprovedStudents";
+<<<<<<< HEAD
 import PendingStudents from "./PendingStudents"; 
 
+=======
+import TakeAttendance from "./TakeAttendance";
+import ViewAttendance from "./ViewAttendance";
+>>>>>>> e05e126725cd313b95ae8c69f9cbfd288ac05c15
 
 function App() {
   return (
@@ -23,7 +28,9 @@ function App() {
         <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/hod/pendingStudents" element={<PendingStudents />} />
         <Route path="/faculty" element={<FacultyDashboard />} />
+        <Route path="/faculty/attendance" element={<TakeAttendance />} />
         <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/student/marks" element={<ViewAttendance />} />
         <Route path="/exam" element={<ExamDashboard />} />
 
       </Routes>
