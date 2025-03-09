@@ -53,29 +53,29 @@ function ApprovedStudents() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [open, setOpen] = useState(false);
   const [editedData, setEditedData] = useState({ name: '', rollNumber: '', department: '', batch: '' });
-
   const columns = [
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'rollNumber', headerName: 'USN', width: 150 },
-    { field: 'dob', headerName: 'DOB', width: 150 },
-    { field: 'batch', headerName: 'Batch', width: 100 },
-    { field: 'department', headerName: 'Department', width: 150 },
+    { field: 'name', headerName: 'Name', width: 200, renderHeader: () => <CustomColumnHeader column={{ headerName: 'Name' }} /> },
+    { field: 'rollNumber', headerName: 'USN', width: 200, renderHeader: () => <CustomColumnHeader column={{ headerName: 'USN' }} /> },
+    { field: 'dob', headerName: 'DOB', width: 200, renderHeader: () => <CustomColumnHeader column={{ headerName: 'DOB' }} /> },
+    { field: 'batch', headerName: 'Batch', width: 200, renderHeader: () => <CustomColumnHeader column={{ headerName: 'Batch' }} /> },
+    { field: 'department', headerName: 'Department', width: 200, renderHeader: () => <CustomColumnHeader column={{ headerName: 'Department' }} /> },
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 150,
+      width: 250,
       renderCell: (params) => (
         <>
-          <IconButton onClick={() => handleEdit(params.row)} sx={{ color: "#FFA500" }}>
+          <IconButton onClick={() => handleEdit(params.row)} sx={{ color: "#FFA500", marginLeft:"20px" }}>
             <EditIcon />
           </IconButton>
-          <IconButton onClick={() => handleDelete(params.row)} sx={{ color: "#FFA500" }}>
+          <IconButton onClick={() => handleDelete(params.row)} sx={{ color: "#FFA500",marginLeft:"40px" }}>
             <DeleteIcon />
           </IconButton>
         </>
       ),
     },
   ];
+  
 
   useEffect(() => {
     fetchApprovedStudents();
@@ -128,7 +128,7 @@ function ApprovedStudents() {
 
   const CustomColumnHeader = ({ column }) => {
     return (
-      <div style={{ color: '#FFA500', fontWeight: 'bold', backgroundColor: '#000000', padding: '10px' }}>
+      <div style={{ color: '#FFA500', fontWeight: 'bold', backgroundColor: '#000000' }}>
         {column?.headerName}
       </div>
     );
@@ -148,41 +148,63 @@ function ApprovedStudents() {
         </AppBar>
 
         <div style={{ height: 400, width: '100%', marginTop: 20 }}>
-        <DataGrid
+          <DataGrid
   rows={students}
   columns={columns}
   getRowId={(row) => row._id}
   sx={{
     '.MuiDataGrid-cell': {
-      color: '#FFA500' // Set text color to orange
+      color: '#FFA500',
     },
     '.MuiDataGrid-columnHeaders': {
-      backgroundColor: '#000000', // Set header background to black
-      color: '#FFA500', // Set text color to orange
-      fontWeight: 'bold', // Make font bold
+      backgroundColor: '#000000',
+      color: '#FFA500',
+      fontWeight: 'bold',
+    },
+    '.MuiDataGrid-columnHeader': {
+      backgroundColor: '#000000',
+      color: '#FFA500',
     },
     '.MuiDataGrid-columnHeaderTitle': {
-      color: '#FFA500', // Ensure header title text is orange
-      fontWeight: 'bold', // Ensure header title text is bold
+      color: '#FFA500',
+      fontWeight: 'bold',
     },
     '.MuiDataGrid-iconButton': {
-      color: '#FFA500', // Set color of edit/delete icons
+      color: '#FFA500',
     }
   }}
 />
+
         </div>
 
         <Dialog open={open} onClose={() => setOpen(false)}>
-          <DialogTitle>Edit Student</DialogTitle>
+          <DialogTitle  sx={{ backgroundColor: '#121212',color:'#FFA500' }}>Edit Student</DialogTitle>
           <DialogContent sx={{ backgroundColor: '#121212' }}>
-            <TextField 
+          <TextField 
               label="Name"
               type="text"
               value={editedData.name}
               onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
               fullWidth
               margin="dense"
-              sx={{ input: { color: '#FFA500' } }}
+              variant="outlined"
+              sx={{ 
+                input: { color: '#FFA500' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#FFA500',
+                  }
+                }
+              }}
+              InputLabelProps={{
+                style: { color: '#FFA500' }
+              }}
             />
             <TextField 
               label="USN"
@@ -191,7 +213,24 @@ function ApprovedStudents() {
               onChange={(e) => setEditedData({ ...editedData, rollNumber: e.target.value })}
               fullWidth
               margin="dense"
-              sx={{ input: { color: '#FFA500' } }}
+              variant="outlined"
+              sx={{ 
+                input: { color: '#FFA500' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#FFA500',
+                  }
+                }
+              }}
+              InputLabelProps={{
+                style: { color: '#FFA500' }
+              }}
             />
             <TextField 
               label="Batch"
@@ -200,7 +239,24 @@ function ApprovedStudents() {
               onChange={(e) => setEditedData({ ...editedData, batch: e.target.value })}
               fullWidth
               margin="dense"
-              sx={{ input: { color: '#FFA500' } }}
+              variant="outlined"
+              sx={{ 
+                input: { color: '#FFA500' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#FFA500',
+                  }
+                }
+              }}
+              InputLabelProps={{
+                style: { color: '#FFA500' }
+              }}
             />
             <TextField 
               label="Department"
@@ -209,17 +265,56 @@ function ApprovedStudents() {
               onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
               fullWidth
               margin="dense"
-              sx={{ input: { color: '#FFA500' } }}
+              variant="outlined"
+              sx={{ 
+                input: { color: '#FFA500' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#FFA500',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#FFA500',
+                  }
+                }
+              }}
+              InputLabelProps={{
+                style: { color: '#FFA500' }
+              }}
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)} color="secondary">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} color="primary">
-              Update
-            </Button>
-          </DialogActions>
+          <DialogActions sx={{ backgroundColor: '#121212', color: '#FFA500' }}>
+          <Button
+            variant="outlined"
+            onClick={() => setOpen(false)}
+            color="secondary"
+            sx={{
+              borderColor: '#FFA500',
+              color: '#FFA500',
+              '&:hover': {
+                borderColor: '#FFA500',
+                backgroundColor: '#333333',
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              backgroundColor: '#FFA500',
+              color: '#121212',  
+              '&:hover': {
+                backgroundColor: '#ff8c00',  
+              },
+            }}
+          >
+            Update
+          </Button>
+        </DialogActions>
         </Dialog>
       </Box>
     </Box>
