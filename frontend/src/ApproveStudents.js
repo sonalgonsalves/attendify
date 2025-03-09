@@ -10,8 +10,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Home from "@mui/icons-material/Home";
 import Group from "@mui/icons-material/Group";
 import School from "@mui/icons-material/School";
-import Settings from "@mui/icons-material/Settings";
-import ExitToApp from "@mui/icons-material/ExitToApp"
+import ExitToApp from "@mui/icons-material/ExitToApp";
 
 const Sidebar = () => (
   <Drawer variant="permanent" anchor="left" sx={{ width: 250, bgcolor: "#1e1e1e", color: "white" }}>
@@ -47,7 +46,7 @@ const ApproveStudents = () => {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [statusFilter, setStatusFilter] = useState("");
-  const [departmentFilter, setDepartmentFilter] = useState("");
+  const [semesterFilter, setSemesterFilter] = useState("");  // Changed from departmentFilter to semesterFilter
 
   useEffect(() => {
     axios.get("http://localhost:5000/students")
@@ -70,7 +69,7 @@ const ApproveStudents = () => {
 
   const filteredStudents = students.filter(student =>
     (statusFilter === "" || student.status === statusFilter) &&
-    (departmentFilter === "" || student.department === departmentFilter)
+    (semesterFilter === "" || student.semester === semesterFilter)  // Updated filtering logic
   );
 
   return (
@@ -78,11 +77,11 @@ const ApproveStudents = () => {
       <Sidebar />
       <Box p={3} sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
-              <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h5" color="#FFA500">APPROVE STUDENTS</Typography>
-                <Button color="inherit" onClick={() => navigate("/")}>Logout <ExitToApp sx={{ marginLeft: 1 }} /></Button>
-              </Toolbar>
-            </AppBar>
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h5" color="#FFA500">APPROVE STUDENTS</Typography>
+            <Button color="inherit" onClick={() => navigate("/")}>Logout <ExitToApp sx={{ marginLeft: 1 }} /></Button>
+          </Toolbar>
+        </AppBar>
         
         <Grid container spacing={2} sx={{ marginBottom: 2 }}>
           {[{
@@ -91,10 +90,10 @@ const ApproveStudents = () => {
             onChange: setStatusFilter,
             options: ["All", "Pending", "Approved", "Rejected"]
           }, {
-            label: "Filter by Department",
-            value: departmentFilter,
-            onChange: setDepartmentFilter,
-            options: ["All", "Computer Science", "Electronics", "Mechanical"]
+            label: "Filter by Semester",  // Updated label
+            value: semesterFilter,
+            onChange: setSemesterFilter,
+            options: ["All", "1", "2", "3", "4", "5", "6", "7", "8"]  // Updated options for semesters
           }].map(({ label, value, onChange, options }, index) => (
             <Grid item xs={6} key={index}>
               <FormControl fullWidth sx={{ backgroundColor: "#1E1E1E", borderRadius: "5px" }}>
@@ -113,7 +112,7 @@ const ApproveStudents = () => {
               <Table>
                 <TableHead>
                   <TableRow sx={{ backgroundColor: "#FFA500" }}>
-                    {["Name", "USN","DOB","Batch", "Department", "Status"].map(head => (
+                    {["Name", "USN", "DOB", "Batch", "Semester", "Status"].map(head => (  // Updated header
                       <TableCell key={head} align="center" sx={{ fontWeight: "bold", color: "#121212" }}>{head}</TableCell>
                     ))}
                   </TableRow>
@@ -121,11 +120,11 @@ const ApproveStudents = () => {
                 <TableBody>
                   {filteredStudents.map(student => (
                     <TableRow key={student._id} sx={{ backgroundColor: "#1E1E1E", color: "#FFA500" }}>
-                      <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.name}</TableCell>
-                      <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.rollNumber}</TableCell>
-                      <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.dob}</TableCell>
-                      <TableCell align="center"  sx={{ color: "#FFA500" }}>{student.batch}</TableCell>
-                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.department}</TableCell>
+                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.name}</TableCell>
+                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.rollNumber}</TableCell>
+                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.dob}</TableCell>
+                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.batch}</TableCell>
+                      <TableCell align="center" sx={{ color: "#FFA500" }}>{student.semester}</TableCell>  
                       <TableCell align="center">
                         <Select value={student.status} onChange={(e) => handleStatusChange(student._id, e.target.value)} sx={{ color: "#FFA500" }}>
                           {["Pending", "Approved", "Rejected"].map(status => (

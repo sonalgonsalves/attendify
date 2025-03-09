@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavLink, useNavigate } from "react-router-dom";
 import { Dashboard, People, Assignment, School, BarChart } from "@mui/icons-material";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const API_BASE_URL = "http://localhost:5000";
 
@@ -13,7 +14,7 @@ function PendingStudents() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [open, setOpen] = useState(false);
-  const [editedData, setEditedData] = useState({ name: '', rollNumber: '', department: '', batch: '' });
+  const [editedData, setEditedData] = useState({ name: '', rollNumber: '', semester: '', batch: '' });  // Changed from department to semester
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +63,7 @@ function PendingStudents() {
     { field: 'rollNumber', headerName: 'USN', width: 200 },
     { field: 'dob', headerName: 'DOB', width: 200 },
     { field: 'batch', headerName: 'Batch', width: 200 },
-    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'semester', headerName: 'Semester', width: 200 },  // Changed from department to semester
     {
       field: 'actions',
       headerName: 'Actions',
@@ -103,9 +104,9 @@ function PendingStudents() {
             <School sx={{ marginRight: 1, color: "inherit" }} />
             <ListItemText primary="Manage Students" />
           </ListItem>
-          <ListItem button component={NavLink} to="/hod/reports" sx={{ color: "#FFA500" }}>
+          <ListItem button component={NavLink} to="/hod/pendingStudents" sx={{ color: "#FFA500" }}>
             <BarChart sx={{ marginRight: 1, color: "inherit" }} />
-            <ListItemText primary="manage Reports" />
+            <ListItemText primary="Pending Students" />
           </ListItem>
         </List>
       </Drawer>
@@ -113,7 +114,9 @@ function PendingStudents() {
         <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography variant="h5" color="#FFA500">PENDING STUDENTS</Typography>
-            <Button color="inherit" onClick={() => navigate("/")}>Logout</Button>
+            <Button color="inherit" onClick={() => navigate("/")}>
+              Logout <ExitToAppIcon sx={{ marginLeft: 1 }} />
+            </Button>
           </Toolbar>
         </AppBar>
         <div style={{ height: 400, width: '100%', marginTop: 20 }}>
@@ -223,10 +226,10 @@ function PendingStudents() {
               }}
             />
             <TextField 
-              label="Department"
+              label="Semester"  // Changed from Department to Semester
               type="text"
-              value={editedData.department}
-              onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
+              value={editedData.semester}  // Updated to use semester
+              onChange={(e) => setEditedData({ ...editedData, semester: e.target.value })}  // Updated to use semester
               fullWidth
               margin="dense"
               variant="outlined"

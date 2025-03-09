@@ -12,7 +12,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import SchoolIcon from '@mui/icons-material/School';
-import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const API_BASE_URL = "http://localhost:5000"; 
@@ -51,18 +50,18 @@ function ApprovedStudents() {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [open, setOpen] = useState(false);
-  const [editedData, setEditedData] = useState({ name: '', rollNumber: '', department: '', batch: '' });
+  const [editedData, setEditedData] = useState({ name: '', rollNumber: '', semester: '', batch: '' });  // Changed from department to semester
   
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'rollNumber', headerName: 'USN', width: 200 },
     { field: 'dob', headerName: 'DOB', width: 200 },
     { field: 'batch', headerName: 'Batch', width: 200 },
-    { field: 'department', headerName: 'Department', width: 200 },
+    { field: 'semester', headerName: 'Semester', width: 200 },  // Changed from department to semester
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 250,
+      width: 237,
       renderCell: (params) => (
         <>
           <IconButton onClick={() => handleEdit(params.row)} sx={{ color: "#FFA500", marginLeft: "20px" }}>
@@ -203,7 +202,7 @@ function ApprovedStudents() {
               onChange={(e) => setEditedData({ ...editedData, rollNumber: e.target.value })}
               fullWidth
               margin="dense"
-              variant="outlined"
+              variant ="outlined"
               sx={{ 
                 input: { color: '#FFA500' },
                 '& .MuiOutlinedInput-root': {
@@ -249,10 +248,10 @@ function ApprovedStudents() {
               }}
             />
             <TextField 
-              label="Department"
+              label="Semester"  // Changed from Department to Semester
               type="text"
-              value={editedData.department}
-              onChange={(e) => setEditedData({ ...editedData, department: e.target.value })}
+              value={editedData.semester}  // Updated to use semester
+              onChange={(e) => setEditedData({ ...editedData, semester: e.target.value })}  // Updated to use semester
               fullWidth
               margin="dense"
               variant="outlined"
@@ -265,7 +264,7 @@ function ApprovedStudents() {
                   '&:hover fieldset': {
                     borderColor: '#FFA500',
                   },
-                  '&.Mui-focused field set': {
+                  '&.Mui-focused fieldset': {
                     borderColor: '#FFA500',
                   }
                 }

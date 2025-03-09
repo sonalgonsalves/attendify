@@ -8,7 +8,7 @@ const ManageStudents = () => {
     rollNumber: '',
     dob: '',
     batch: '',
-    department: '',
+    semester: '',  // Changed from department to semester
   });
 
   const [errors, setErrors] = useState({});
@@ -23,7 +23,7 @@ const ManageStudents = () => {
     
     if (!formData.batch) newErrors.batch = 'Batch is required';
     
-    if (!formData.department) newErrors.department = 'Department is required';
+    if (!formData.semester) newErrors.semester = 'Semester is required';  // Updated validation
 
     if (!formData.dob) newErrors.dob = 'Date of Birth is required';
 
@@ -44,7 +44,7 @@ const ManageStudents = () => {
       console.log("Student Details Submitted:", response.data);
   
       setIsModalOpen(true);
-      setFormData({ name: '', rollNumber: '', dob: '',batch: '', department: '' });
+      setFormData({ name: '', rollNumber: '', dob: '', batch: '', semester: '' });  // Updated reset
     } catch (error) {
       console.error("Error submitting student details:", error);
     }
@@ -112,7 +112,7 @@ const ManageStudents = () => {
           value={formData.dob}
           onChange={handleChange}
           error={!!errors.dob}
-          helperText={errors.dob}
+          helperText={errors .dob}
           sx={{ mb: 2, input: { color: "#FFA500" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
         />
 
@@ -127,19 +127,19 @@ const ManageStudents = () => {
           sx={{ mb: 2, input: { color: "#FFF" }, '& .MuiInputLabel-root': { color: "#FFA500" } }}
         />
 
-        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.department}>
-          <InputLabel sx={{ color: "#FFA500" }}>Department</InputLabel>
+        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.semester}>
+          <InputLabel sx={{ color: "#FFA500" }}>Semester</InputLabel>
           <Select
-            name="department"
-            value={formData.department}
+            name="semester"
+            value={formData.semester}
             onChange={handleChange}
             sx={{ color: "#FFF" }}
           >
             <MenuItem value="">Select</MenuItem>
-            <MenuItem value="CSE">Computer Science</MenuItem>
-            <MenuItem value="ECE">Electronics & Communication</MenuItem>
-            <MenuItem value="MECH">Mechanical Engineering</MenuItem>
-            <MenuItem value="CIVIL">Civil Engineering</MenuItem>
+            <MenuItem value="1">Semester 1</MenuItem>
+            <MenuItem value="2">Semester 2</MenuItem>
+            <MenuItem value="3">Semester 3</MenuItem>
+            <MenuItem value="4">Semester 4</MenuItem>
           </Select>
         </FormControl>
 
