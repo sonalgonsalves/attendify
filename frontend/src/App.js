@@ -25,12 +25,10 @@ function App() {
         <Route path="/hod" element={<HodDashboard />} />
         <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/hod/pendingStudents" element={<PendingStudents />} />
+        <Route path="/hod/reports" element={<ViewAttendance />} />
         <Route path="/faculty" element={<FacultyDashboard />} />
         <Route path="/faculty/attendance" element={<TakeAttendance />} />
         <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/student/marks" element={<ViewAttendance />} />
-        <Route path="/exam" element={<ExamDashboard />} />
-
       </Routes>
     </Router>
   );
