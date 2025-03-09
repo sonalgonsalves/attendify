@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Attendance = require("../models/attendance");
-const Student = require("../models/students"); // Ensure this model exists
+const Student = require("../models/students");
 
 // Fetch approved students by department
 router.get("/students/approved", async (req, res) => {
@@ -25,7 +25,6 @@ router.get("/students/approved", async (req, res) => {
     }
 });
 
-// Update or insert attendance
 router.post("/attendance/update", async (req, res) => {
     const { department, date, students } = req.body;
 
@@ -51,7 +50,6 @@ router.post("/attendance/update", async (req, res) => {
     }
 });
 
-// In your backend router file
 router.get("/attendance", async (req, res) => {
     try {
         const attendanceRecords = await Attendance.find();

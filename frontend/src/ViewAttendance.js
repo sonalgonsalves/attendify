@@ -51,7 +51,7 @@ function ViewAttendance() {
                                 <TableRow>
                                     <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Department</TableCell>
                                     <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Date</TableCell>
-                                    <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Student ID</TableCell>
+                                    <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Student Name</TableCell>
                                     <TableCell sx={{ color: "#FFA500", fontWeight: "bold" }}>Status</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -61,7 +61,7 @@ function ViewAttendance() {
                                         <TableRow key={student.studentId} sx={{ '&:hover': { backgroundColor: '#333' } }}>
                                             <TableCell sx={{ color: "#FFA500" }}>{record.department}</TableCell>
                                             <TableCell sx={{ color: "#FFA500" }}>{record.date}</TableCell>
-                                            <TableCell sx={{ color: "#FFA500" }}>{student.studentId}</TableCell>
+                                            <TableCell sx={{ color: "#FFA500" }}>{student.name}</TableCell>
                                             <TableCell sx={{ color: "#FFA500" }}>{student.present ? "Present" : "Absent"}</TableCell>
                                         </TableRow>
                                     ))

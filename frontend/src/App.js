@@ -9,7 +9,6 @@ import ManageStudents from "./ManageStudents";
 import ApproveStudents from "./ApproveStudents";
 import ApprovedStudents from "./ApprovedStudents";
 import PendingStudents from "./PendingStudents"; 
-
 import TakeAttendance from "./TakeAttendance";
 import ViewAttendance from "./ViewAttendance";
 import ManageFaculty from "./ManageFaculty";

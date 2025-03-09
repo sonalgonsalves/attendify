@@ -37,7 +37,6 @@ function TakeAttendance() {
         }
     };
     
-    
     const handleCheckboxChange = (index) => {
         setStudents(prevStudents =>
             prevStudents.map((student, i) =>
@@ -62,8 +61,9 @@ function TakeAttendance() {
             const response = await axios.post(`${API_BASE_URL}/attendance/update`, { 
                 department,
                 date,
-                students: students.map(({ _id, present }) => ({
+                students: students.map(({ _id, name, present }) => ({
                     studentId: _id,
+                    name,
                     present
                 }))
             });
@@ -78,7 +78,6 @@ function TakeAttendance() {
             alert(`Failed to update attendance. ${error.response?.data?.message || error.message}`);
         }
     };
-
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "#121212", color: "#FFA500", alignItems: "center", padding: 3 }}>
             <AppBar position="static" sx={{ backgroundColor: "#121212", width: "100%" }}>
