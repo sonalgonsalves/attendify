@@ -81,7 +81,7 @@ function Sidebar() {
         HOD Panel
       </Box>
       <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-        <ListItem button component={NavLink} to="/hod" 
+        <ListItem button component={NavLink} to="/hod/dashboard" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
@@ -106,7 +106,7 @@ function Sidebar() {
           <School sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Pending Students" />
         </ListItem>
-        <ListItem button component={NavLink} to="/hod/departments" 
+        <ListItem button component={NavLink} to="/hod/faculty" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"

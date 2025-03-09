@@ -13,6 +13,7 @@ import TakeAttendance from "./TakeAttendance";
 import ViewAttendance from "./ViewAttendance";
 import ManageFaculty from "./ManageFaculty";
 import ViewSubjects from "./ViewSubjects";
+import ViewFaculty from "./ViewFaculty";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path="/admin/faculty" element={<ManageFaculty />} />
         <Route path="/admin/ApproveStudents" element={<ApproveStudents />} />
         <Route path="/students/approved" element={<ApprovedStudents />} />
-        <Route path="/hod" element={<HodDashboard />} />
+        <Route path="/hod/dashboard" element={<HodDashboard />} />
+        <Route path="/hod/faculty" element={<ViewFaculty />} />
         <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/hod/pendingStudents" element={<PendingStudents />} />
         <Route path="/hod/reports" element={<ViewAttendance />} />

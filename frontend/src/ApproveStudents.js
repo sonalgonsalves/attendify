@@ -93,7 +93,7 @@ const ApproveStudents = () => {
             label: "Filter by Semester",  // Updated label
             value: semesterFilter,
             onChange: setSemesterFilter,
-            options: ["All", "1", "2", "3", "4", "5", "6", "7", "8"]  // Updated options for semesters
+            options: ["All", "1", "2", "3", "4"]  // Updated options for semesters
           }].map(({ label, value, onChange, options }, index) => (
             <Grid item xs={6} key={index}>
               <FormControl fullWidth sx={{ backgroundColor: "#1E1E1E", borderRadius: "5px" }}>
