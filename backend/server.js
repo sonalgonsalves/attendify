@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const studentsRoutes = require("./routes/students");
+const attendanceRoutes = require("./routes/attendance");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 // Routes
 app.use("/students", studentsRoutes);
+app.use('/api', attendanceRoutes);
 
 const PORT = 5000;
 const MONGO_URI = "mongodb://localhost:27017/attendify"; // Change as per your DB
