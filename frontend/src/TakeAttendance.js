@@ -5,13 +5,15 @@ import {
     Checkbox, FormControlLabel, Box, Typography, AppBar, Toolbar
 } from "@mui/material";
 import { Drawer, List, ListItem, ListItemText } from '@mui/material'; // Import necessary components for Sidebar
-import { NavLink } from 'react-router-dom'; // Import NavLink for routing
+import { NavLink,useNavigate } from 'react-router-dom'; // Import NavLink for routing
 import DashboardIcon from '@mui/icons-material/Dashboard'; // Import icons
 import Home from '@mui/icons-material/Home';
 import Group from '@mui/icons-material/Group';
 import School from '@mui/icons-material/School';
 import Settings from '@mui/icons-material/Settings';
 import Book from '@mui/icons-material/Book';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
 
 const API_BASE_URL = "http://localhost:5000/api"; // Adjust if needed
 
@@ -22,7 +24,7 @@ function Sidebar() {
           Faculty Panel
         </Box>
         <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-          <ListItem button component={NavLink} to="/faculty" 
+          <ListItem button component={NavLink} to="/faculty/dashboard" 
             style={({ isActive }) => ({
               backgroundColor: isActive ? "#FFA500" : "transparent",
               color: isActive ? "#000000" : "#FFA500"
@@ -30,7 +32,7 @@ function Sidebar() {
             <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
             <ListItemText primary="Dashboard" />
           </ListItem>
-          <ListItem button component={NavLink} to="/faculty/subjects" 
+          <ListItem button component={NavLink} to="/faculty/view" 
             style={({ isActive }) => ({
               backgroundColor: isActive ? "#FFA500" : "transparent",
               color: isActive ? "#000000" : "#FFA500"
@@ -52,6 +54,7 @@ function Sidebar() {
 }
 
 function TakeAttendance() {
+    const navigate = useNavigate();
     const [semester, setSemester] = useState("");
     const [date, setDate] = useState("");
     const [students, setStudents] = useState([]);
@@ -149,11 +152,22 @@ function TakeAttendance() {
             console.error("Error updating attendance:", error);
             alert(`Failed to update attendance. ${error.response?.data?.message || error.message}`);
         }
+        
     };
 
     return (
+        
         <Box sx={{ display: "flex", flexDirection: "row", height: "100vh", backgroundColor: "#121212", color: "#FFA500" }}>
             <Sidebar />
+            <Box p={3} sx={{ flexGrow: 1 }}>
+        <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h5" color="#FFA500">TAKE ATTENDANCE</Typography>
+            <Button color="inherit" onClick={() => navigate("/")}>
+              Logout <ExitToAppIcon sx={{ marginLeft: 1 }} />
+            </Button>
+          </Toolbar>
+        </AppBar>
             <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center", padding: 3 }}>
                 <Box sx={{ width: "50%", backgroundColor: "#1e1e1e", boxShadow: 3, borderRadius: 2, p: 3 }}>
                     <Typography variant="h6" sx={{ color: "#FFA500", textAlign: "center", fontWeight: "bold" }}>Take Attendance</Typography>
@@ -255,6 +269,7 @@ function TakeAttendance() {
                             </Box>
                         </Box>
                     )}
+                </Box>
                 </Box>
             </Box>
         </Box>

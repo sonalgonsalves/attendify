@@ -50,7 +50,7 @@ function Sidebar() {
         Faculty Panel
       </Box>
       <List sx={{ bgcolor: '#1e1e1e', height: '100%' }}>
-        <ListItem button component={NavLink} to="/faculty" 
+        <ListItem button component={NavLink} to="/faculty/dashboard" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
@@ -58,7 +58,7 @@ function Sidebar() {
           <DashboardIcon sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button component={NavLink} to="/faculty/subjects" 
+        <ListItem button component={NavLink} to="/faculty/view" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"

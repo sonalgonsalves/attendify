@@ -12,6 +12,7 @@ import PendingStudents from "./PendingStudents";
 import TakeAttendance from "./TakeAttendance";
 import ViewAttendance from "./ViewAttendance";
 import ManageFaculty from "./ManageFaculty";
+import ViewSubjects from "./ViewSubjects";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
         <Route path="/hod/ManageStudents" element={<ManageStudents />} />
         <Route path="/hod/pendingStudents" element={<PendingStudents />} />
         <Route path="/hod/reports" element={<ViewAttendance />} />
-        <Route path="/faculty" element={<FacultyDashboard />} />
+        <Route path="/faculty/dashboard" element={<FacultyDashboard />} />
+        <Route path="/faculty/view" element={<ViewSubjects/>} />
         <Route path="/faculty/attendance" element={<TakeAttendance />} />
         <Route path="/student" element={<StudentDashboard />} />
       </Routes>
