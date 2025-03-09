@@ -89,29 +89,30 @@ function Sidebar() {
           <Dashboard sx={{ marginRight: 1, color: "inherit" }} />
           <ListItemText primary="Dashboard" />
         </ListItem>
+        
+        <ListItem button component={NavLink} to="/hod/ManageStudents" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <People sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Manage Students" />
+        </ListItem>
+        <ListItem button component={NavLink} to="/hod/pendingStudents" 
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? "#FFA500" : "transparent",
+            color: isActive ? "#000000" : "#FFA500"
+          })}>
+          <School sx={{ marginRight: 1, color: "inherit" }} />
+          <ListItemText primary="Pending Students" />
+        </ListItem>
         <ListItem button component={NavLink} to="/hod/departments" 
           style={({ isActive }) => ({
             backgroundColor: isActive ? "#FFA500" : "transparent",
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <Assignment sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Configure Evaluation" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/hod/faculty" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <People sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage Faculty" />
-        </ListItem>
-        <ListItem button component={NavLink} to="/hod/students" 
-          style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FFA500" : "transparent",
-            color: isActive ? "#000000" : "#FFA500"
-          })}>
-          <School sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Manage Students" />
+          <ListItemText primary="View Faculty" />
         </ListItem>
         <ListItem button component={NavLink} to="/hod/reports" 
           style={({ isActive }) => ({
@@ -119,7 +120,7 @@ function Sidebar() {
             color: isActive ? "#000000" : "#FFA500"
           })}>
           <BarChart sx={{ marginRight: 1, color: "inherit" }} />
-          <ListItemText primary="Generate Reports" />
+          <ListItemText primary="View Attendance" />
         </ListItem>
       </List>
     </Drawer>
